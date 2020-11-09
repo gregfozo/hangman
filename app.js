@@ -8,12 +8,14 @@ guessesEl.textContent = guessesEl.textContent = `Remaining guesses: ${game1.rema
 window.addEventListener('keypress', function(e){
     game1.makeGuess(e.key)
 
-    puzzleEl.textContent = game1.getPuzzle();
+    if (game1.remainingGuesses < 0 || !puzzleEl.textContent.includes("*")) {
+        return;
+        }
 
-    if(puzzleEl.textContent.includes('*') && game1.remainingGuesses >= 1){
+    if(game1.getPuzzle().includes('*') && game1.remainingGuesses >= 1){
         puzzleEl.textContent = game1.getPuzzle();
         guessesEl.textContent = `Remaining guesses: ${game1.remainingGuesses}`;
-    } else if(!puzzleEl.textContent.includes('*') && game1.remainingGuesses >= 1) {
+    } else if(!game1.getPuzzle().includes('*') && game1.remainingGuesses >= 1) {
         puzzleEl.textContent = "YOU WON!"
         guessesEl.textContent = "Congratulations!"
     } else {
